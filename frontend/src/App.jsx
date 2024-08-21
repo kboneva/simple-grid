@@ -1,9 +1,16 @@
+import { Route, Routes } from "react-router-dom"
+import { Grid } from "./components/Grid"
+import { NotFound } from "./components/NotFound"
+import { ButtonPage } from "./components/ButtonPage"
+
 function App() {
 
   return (
-    <>
-      <p>Hello world</p>
-    </>
+    <Routes>
+      <Route path='/' element={<Grid/>} />
+      <Route path='/button/:id' element={<ButtonPage />} />
+      <Route path='*' element={<NotFound/>} />
+    </Routes>
   )
 }
 

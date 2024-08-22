@@ -27,11 +27,11 @@ export default function Button({ button, setButtons }) {
     return (
         <a href={link} 
             target="_blank" rel="noopener noreferrer" 
-            className='rounded-lg border border-solid border-transparent py-2 px-4 bg-neutral-700'>
-            <div>
+            className='rounded-lg outline outline-transparent overflow-hidden bg-neutral-700'>
+            <div className='w-full h-2 my-0' style={{ backgroundColor: color }}></div>
+            <div className='py-2 px-4 flex flex-col gap-2'>
                 <div className='text-white'>
                     <span>{title} </span>
-                    <span>{color} </span>
                 </div>
                 <div>
                     <button onClick={e => handleEdit(e)}>Edit</button>
@@ -44,10 +44,10 @@ export default function Button({ button, setButtons }) {
 
 Button.propTypes = {
     button: PropTypes.shape({
-        id: PropTypes.number,
-        title: PropTypes.string,
+        id: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
         color: PropTypes.string,
         link: PropTypes.string
-    }).isRequired,
+    }),
     setButtons: PropTypes.func
 }

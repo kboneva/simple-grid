@@ -1,26 +1,26 @@
 import { useEffect, useState } from "react"
 import PropTypes from 'prop-types';
 import { Link, useParams } from "react-router-dom";
+import { Colors } from "../constants/colors";
 
 export default function ButtonForm ({ data, handleSubmit}) {
     const { id } = useParams();
     const [title, setTitle] = useState('');
     const [color, setColor] = useState('');
-    const [link, setLink] = useState('');
+    const [link, setLink] = useState(''); // TODO set data?.something here || ''
 
     useEffect(() => {
         if (data) {
-            setTitle(data.title);
-            setColor(data.color);
-            setLink(data.link);
+            setTitle(data.title || '');
+            setColor(data.color || '');
+            setLink(data.link || '');
         }
-        console.log(id);
     }, [])
 
     const onSubmit = (event) => {
         event.preventDefault();
         const button = {title, color, link};
-        id ? handleSubmit(id, button) : handleSubmit(button);
+        id ? handleSubmit(id, button) : handleSubmit(button); // TODO fix handleSubmit
     }
 
     return (
@@ -40,18 +40,23 @@ export default function ButtonForm ({ data, handleSubmit}) {
                 <input
                     type="url" 
                     value={link} 
-                    onChange={e => setLink(e.target.value)} 
-                    required 
+                    onChange={e => setLink(e.target.value)}  
                 />
             </div>
             <div className="flex gap-2">
                 <label htmlFor="color">Color</label>
-                <input 
-                    type="text" 
+                <select 
                     value={color} 
-                    onChange={e => setColor(e.target.value)} 
-                    required 
-                />
+                    onChange={e => setColor(e.target.value)}
+                    pattern="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"  
+                >
+                    <option value="" disabled>Select a color</option>
+                    {Object.entries(Colors).map(([name, value]) => (
+                        <option key={name} value={value}>
+                            {name}
+                        </option>
+                    ))}
+                </select>
             </div>
             <button type="submit">{id ? "Edit" : "Add"}</button>
             <Link to={"/"}>Back</Link>

@@ -1,15 +1,29 @@
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { deleteButton } from '../services/buttonService';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { Colors } from '../constants/colors';
 
 export default function Button({ button, setButtons }) {
-    const { id, title, color } = button;
+    const { id, title, color, link } = button;
     const [dropdown, setDropdown] = useState(false);
     const navigate = useNavigate();
+    const dropdownRef = useRef(null);
+
+    useEffect(() => {
+        const clickOut = (event) => {
+            if (!dropdownRef.current.contains(event.target)){
+                setDropdown(false);
+            }
+        }
+
+        document.addEventListener("mousedown", clickOut);
+        return () => {
+            document.removeEventListener("mousedown", clickOut);
+        }
+    }, [dropdown])
 
     const toggleDropdown = (event) => {
         event.preventDefault();
@@ -39,9 +53,12 @@ export default function Button({ button, setButtons }) {
             <div className='w-full rounded-t-lg h-4 my-0' style={{ backgroundColor: color || Colors.Gray }}></div>
             <div className='py-2 px-4 flex flex-row justify-between'>
                 <div className='text-white'>
-                    <span>{title} </span>
+                    <p>{title}</p>
+                    {!link && 
+                        <span className='text-rose-400 text-sm'>Button link not configured</span>
+                    }
                 </div>
-                <div className='relative'>
+                <div ref={dropdownRef} className='relative'>
                     <button type="button" onClick={(e) => toggleDropdown(e)} className="justify-center rounded-full bg-white py-2 px-3 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" id="menu-button" aria-expanded="true" aria-haspopup="true">
                         <FontAwesomeIcon icon={faEllipsisH} />
                     </button>

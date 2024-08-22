@@ -83,7 +83,7 @@ export default function ButtonForm () {
                     ))}
                 </select>
             </div>
-            <button type="submit">{id ? "Edit" : "Add"}</button>
+            <button type="submit">{id ? "Save" : "Add"}</button>
             <Link to={"/"}>Back</Link>
         </form>
     )

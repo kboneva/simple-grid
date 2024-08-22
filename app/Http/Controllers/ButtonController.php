@@ -16,7 +16,13 @@ class ButtonController extends Controller
             return response()->json(['error' => 'Maximum of 9 buttons allowed'], 400);
         }
 
-        $button = Button::create($request->all());
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'color' => 'nullable|string|hex_color',
+            'link' => 'nullable|string|url'
+        ]);
+
+        $button = Button::create($validated);
         return response()->json($button, 201);
     }
 

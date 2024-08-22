@@ -1,31 +1,56 @@
 import { useEffect, useState } from "react"
 import PropTypes from 'prop-types';
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Colors } from "../constants/colors";
+import { createButton, editButton, getButton } from "../services/buttonService";
 
-export default function ButtonForm ({ data, handleSubmit}) {
+export default function ButtonForm () {
     const { id } = useParams();
     const [title, setTitle] = useState('');
     const [color, setColor] = useState('');
-    const [link, setLink] = useState(''); // TODO set data?.something here || ''
+    const [link, setLink] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
-        if (data) {
-            setTitle(data.title || '');
-            setColor(data.color || '');
-            setLink(data.link || '');
+        if ( id ) {
+            getButton(id).then(data => {
+                setTitle(data.title || '');
+                setColor(data.color || '');
+                setLink(data.link || '');
+            });
         }
-    }, [])
+    }, [id])
 
     const onSubmit = (event) => {
         event.preventDefault();
-        const button = {title, color, link};
-        id ? handleSubmit(id, button) : handleSubmit(button); // TODO fix handleSubmit
+        const button = {
+            title, 
+            color: color || null, 
+            link: link || null};
+        id ? handleEdit(id, button) : handleCreate(button);
     }
+
+    const handleCreate = async (button) => {
+		try {
+			await createButton(button);
+			navigate('/');
+		} catch (error) {
+			console.error('Error creating button:', error);
+		}
+	}
+
+	const handleEdit = async (id, button) => {
+		try {
+			await editButton(id, button);
+			navigate('/');
+		} catch (error) {
+			console.error('Error updating button:', error);
+		}
+	}
 
     return (
         <form onSubmit={onSubmit} className="flex flex-col gap-4">
-            <p>{id ? "Edit" : "Create"} a new button</p>
+            <p>{id ? "Edit current " : "Create a new "}button</p>
             <div className="flex gap-2">
                 <label htmlFor="title">Title</label>
                 <input 

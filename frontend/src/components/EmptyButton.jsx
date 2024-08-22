@@ -1,12 +1,11 @@
-import { Link } from "react-router-dom"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 export default function EmptyButton () {
 
     return (
-        <Link to={"/create"} className='rounded-lg border border-solid border-transparent py-2 px-4 bg-neutral-700'>
-            <div className="flex justify-center items-center h-full">
-                <p>Empty Button</p>
-            </div>
-        </Link>
+        <div className="flex justify-center items-center h-full">
+            <FontAwesomeIcon icon={faPlus} size="2x" className="text-gray-500" />
+        </div>
     )
 }

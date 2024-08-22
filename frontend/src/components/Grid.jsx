@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import Button from "./Button"
-import EmptyButton from "./EmptyButton";
 import { getAll } from "../services/buttonService";
+import Slot from "./Slot";
 
 export default function Grid () {
     const [buttons, setButtons] = useState([]);
@@ -17,9 +16,7 @@ export default function Grid () {
     return (
         <div className="grid grid-cols-3 grid-rows-3 gap-4">
             {buttons.map((btn, index) => (
-                btn?.id ? 
-                <Button key={index} button={btn} setButtons={setButtons} /> :
-                <EmptyButton key={index} />
+                <Slot key={index} button={btn} setButtons={setButtons} />
             ))}
         </div>
     )

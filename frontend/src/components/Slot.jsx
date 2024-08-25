@@ -11,7 +11,7 @@ export default function Slot({ button, setButtons }) {
             return(
                 <a href={link} 
                 target="_blank" rel="noopener noreferrer"
-                className='min-h-40 min-w-80 rounded-lg outline outline-transparent bg-neutral-700'>
+                className='slot'>
                     <Button button={button} setButtons={setButtons} />
                 </a>
             )
@@ -20,7 +20,7 @@ export default function Slot({ button, setButtons }) {
             return(
                 <Link 
                 to={`/edit/${id}`}
-                className='min-h-40 min-w-80 rounded-lg outline outline-transparent bg-neutral-700'>
+                className='slot'>
                     <Button button={button} setButtons={setButtons} />
                 </Link>
             )
@@ -30,8 +30,8 @@ export default function Slot({ button, setButtons }) {
         return (
             <Link 
             to={'/create'}
-            className='min-h-40 min-w-80 rounded-lg outline outline-transparent bg-neutral-700'>
-                <EmptyButton />
+            className='slot'>
+                <EmptyButton/>
             </Link>
         )
     }

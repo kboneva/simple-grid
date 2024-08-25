@@ -18,7 +18,7 @@ class ButtonController extends Controller
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'color' => 'nullable|string|hex_color',
+            'color' => 'nullable|string',
             'link' => 'nullable|string|url'
         ]);
 

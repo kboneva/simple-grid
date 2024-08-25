@@ -37,3 +37,9 @@ export const deleteButton = async (id) => {
         method: "DELETE"
     });
 }
+
+export const isMaxButtonsCount = async () => {
+    const response = await fetch(api_url);
+    const responseJSON = await response.json();
+    return responseJSON.length >= 9;
+}

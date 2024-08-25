@@ -12,9 +12,9 @@ export default function Button({ button, setButtons }) {
     const navigate = useNavigate();
     const dropdownRef = useRef(null);
 
-    const colors = Colors.find(c => c.name === color);
-    const color1 = colors.color1 || Colors.find(c => c.name === "Gray").color1;
-    const color2 = colors.color2 || Colors.find(c => c.name === "Gray").color2;
+    const colors = Colors.find(c => c.name === color) || Colors.find(c => c.name === "Gray");
+    const color1 = colors.color1;
+    const color2 = colors.color2;
 
     useEffect(() => {
         const clickOut = (event) => {
@@ -53,27 +53,27 @@ export default function Button({ button, setButtons }) {
     }
 
     return (
-        <div className='flex justify-between py-4 px-6 h-full rounded-lg'
-            style={{ background: `linear-gradient(to bottom right, ${color2}, ${color1})` }}>
-            <p className='text-2xl text-gray-400 mix-blend-difference font-semibold'>{title}</p>
-            <div ref={dropdownRef} className=''>
-                <div className='flex flex-row gap-4'>
+        <div className='flex flex-row h-full rounded-lg p-2 gap-1 bg-white lg:flex-col'>
+            <div className='h-full aspect-square rounded-lg lg:flex-grow lg:aspect-auto' style={{ background: `linear-gradient(to bottom right, ${color2}, ${color1})` }}></div>
+            <div className='flex justify-between items-center w-full py-2 px-4'>
+                <p className='text-xl text-gray-700 font-semibold lg:text-2xl'>{title}</p>
+                <div className='flex flex-row items-center gap-4'>
                     {!link &&
-                        <span className='relative'>
-                            <FontAwesomeIcon className='icon text-gray-400 mix-blend-difference peer' icon={faChainSlash} />
+                        <div className='relative'>
+                            <FontAwesomeIcon className='icon text-rose-600 text-opacity-50 peer' icon={faChainSlash} />
                             {!dropdown && <span className="tooltip">Link not configured</span>}
-                        </span>
+                        </div>
                     }
-                    <button type="button" className='relative' onClick={(e) => toggleDropdown(e)} id="menu-button" aria-expanded="true" aria-haspopup="true">
-                        <FontAwesomeIcon className='icon rounded-full text-gray-400 mix-blend-difference transition-colors duration-200
-                                              hover:text-slate-900 focus:text-slate-900 hover:bg-gray-400 hover:bg-opacity-50 hover:bg-blend-screen' icon={faEllipsisV} />
+                    <div className='relative' ref={dropdownRef}>
+                        <FontAwesomeIcon onClick={(e) => toggleDropdown(e)} className='icon rounded-full text-gray-700 transition-colors duration-200
+                            hover:text-slate-800 focus:text-slate-800 hover:bg-indigo-50' icon={faEllipsisV} />
                         {dropdown &&
                             <div className='absolute right-0 z-20 mt-2 p-1 rounded-md bg-white shadow-md flex flex-col ring-1 ring-black ring-opacity-5'>
                                 <button className='py-2 px-4 text-sm text-gray-700 transition-colors hover:bg-indigo-50' onClick={e => handleEdit(e)}>Edit</button>
                                 <button className='py-2 px-4 text-sm text-gray-700 transition-colors hover:bg-indigo-50' onClick={e => handleDelete(e)}>Delete</button>
                             </div>
-                    }
-                    </button>
+                        }
+                    </div>
                 </div>
             </div>
         </div>

@@ -3,17 +3,20 @@ import { getAll } from "../services/buttonService";
 import Slot from "./Slot";
 import Spinner from "./Spinner";
 
-export default function Grid () {
+export default function Grid() {
     const [buttons, setButtons] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        getAll().then(data => {
-            const setBtns = data.slice(0, 9);
-            const emptyBtns = Array(9 - setBtns.length).fill(undefined);
-            setButtons([...setBtns, ...emptyBtns]);
-        })
-        .then(() => setLoading(false));
+        try {
+            getAll().then(data => {
+                const setBtns = data.slice(0, 9);
+                const emptyBtns = Array(9 - setBtns.length).fill(undefined);
+                setButtons([...setBtns, ...emptyBtns]);
+            }).then(() => setLoading(false));
+        } catch (error) {
+            console.error('Error fetching buttons:', error);
+        }
     }, []);
 
     return (loading ? <Spinner /> :

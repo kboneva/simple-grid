@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 .slot {
-  @apply w-full rounded-lg drop-shadow-md shadow-indigo-800
+  @apply w-full rounded-lg shadow-sm
          ring-1 ring-black ring-opacity-10
-         lg:min-h-52 lg:w-auto
-         transition-all hover:drop-shadow-lg hover:shadow-sm;
+         lg:min-h-56 lg:w-auto
+         transition-all hover:shadow-md;
 }
 
 .btn {
@@ -27,8 +27,8 @@
 }
 
 .tooltip {
-  @apply opacity-0 absolute z-10 left-0 -translate-x-full top-2/4 -translate-y-2/4 w-max px-3 py-2 
-         text-xs text-rose-400 bg-white text-center rounded-md 
+  @apply opacity-0 absolute z-10 left-0 mt-2 -translate-x-full top-2/4 -translate-y-2/4 w-max px-3 py-2 
+         text-xs text-rose-400 text-center bg-white rounded-md ring-1 ring-black ring-opacity-10
          transition-opacity peer-hover:opacity-100
          lg:left-2/4 lg:-translate-x-2/4 lg:top-auto lg:translate-y-0
          
@@ -58,5 +58,5 @@ body {
 
 #root {
   width: 100%;
-  max-width: 1600px;
+  max-width: 1400px;
 }

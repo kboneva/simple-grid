@@ -37,9 +37,10 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-4. Run migrations to setup database
+4. Run migrations to setup database and optionally seed
 ```
 php artisan migrate
+php artisan db:seed
 ```
 
 5. Run the development server

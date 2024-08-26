@@ -17,12 +17,12 @@ class ButtonSeeder extends Seeder
             [
                 'title' => 'Google',
                 'link' => 'https://google.com',
-                'color' => 'blue',
+                'color' => 'Blue',
             ],
             [
                 'title' => 'Youtube',
                 'link' => 'https://youtube.com',
-                'color' => 'red',
+                'color' => 'Red',
             ]
         ]
     );
